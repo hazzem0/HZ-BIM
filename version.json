@@ -3,7 +3,7 @@
   "releaseUrl": "https://github.com/hazzem0/HZ-BIM/releases/tag/v2.8.0",
   "downloadUrl": "https://github.com/hazzem0/HZ-BIM/releases/download/v2.8.0/HZ-BIM-Setup.exe",
   "assetFileName": "HZ-BIM-Setup.exe",
-  "sha256": "",
+  "sha256": "5b0b937759d17f83f5a0f3b12fb13f3215e26334eed6b484fdd571172527771e",
   "changelog": "HZ-BIM v2.8.0 — first release by Hazem Ahmed Ali. MCP server + Revit (2020-2027) and Navisworks Manage (2020-2027) plugins, 274 AI tools, no activation needed, Claude Desktop (incl. Microsoft Store build) configured automatically.",
   "minVersion": "1.0.0"
 }
