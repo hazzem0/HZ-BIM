@@ -1,35 +1,32 @@
-# revit-mcp-server
+# HZ-BIM MCP Server
 
-[![npm version](https://img.shields.io/npm/v/revit-mcp-server.svg)](https://www.npmjs.com/package/revit-mcp-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **MCP Server for Autodesk Revit** — 209 AI-powered tools for BIM automation.  
-> Works with Claude Desktop, Cursor, Windsurf, and any MCP client. Supports **Revit 2020–2027**.
+> **MCP Server for Autodesk Revit & Navisworks** — part of HZ-BIM by Hazem Ahmed Ali.
+> Works with Claude Desktop, Cursor, Windsurf, VS Code and any MCP client. Supports **Revit 2020–2027**.
 
 ## ⚡ Quick Start
 
-### Run with npx (no install needed)
+Install with **`HZ-BIM-Setup.exe`** from [GitHub Releases](https://github.com/hazzem0/HZ-BIM/releases).
+The installer deploys the server, the Revit/Navisworks plugins and configures Claude Desktop
+(normal and Microsoft Store builds) automatically.
+
+### Build from source
 
 ```bash
-npx -y revit-mcp-server
+cd revit-mcp-server
+npm ci
+npm run build
 ```
 
-### Or install globally
-
-```bash
-npm install -g revit-mcp-server
-```
-
-## Claude Desktop Configuration
-
-Add to `%APPDATA%\Claude\claude_desktop_config.json`:
+Then point your MCP client at it:
 
 ```json
 {
   "mcpServers": {
-    "hz-bim": {
-      "command": "npx",
-      "args": ["-y", "revit-mcp-server"]
+    "HZ-BIM": {
+      "command": "node",
+      "args": ["C:\\path\\to\\HZ-BIM\\revit-mcp-server\\build\\index.js"]
     }
   }
 }

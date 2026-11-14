@@ -42,8 +42,7 @@ REVIT_SKIP_FILE = LOCALAPPDATA / "HzBim" / "skip_version.txt"
 REVIT_SETTINGS = APPDATA / "Autodesk" / "Revit" / "Addins" / "HzBim" / "plugin-settings.json"
 
 GITHUB = "hazzem0/HZ-BIM"
-MANIFEST_URLS = ("https://elmthary.space/version.json",
-                 f"https://raw.githubusercontent.com/{GITHUB}/main/version.json")
+MANIFEST_URLS = (f"https://raw.githubusercontent.com/{GITHUB}/main/version.json",)
 YEARS = range(2020, 2028)
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 AUTO_CHECK_EVERY_S = 24 * 3600

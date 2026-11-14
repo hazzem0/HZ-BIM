@@ -17,7 +17,7 @@ node build/tests/test-startup.js
 ```
 
 ### 3. Install Plugin to Revit
- Download **`HzBim-Setup-2.8.0.exe`** from [GitHub Releases](https://github.com/hazzem0/HZ-BIM/releases) and run as Administrator.
+ Download **`HZ-BIM-Setup.exe`** from [GitHub Releases](https://github.com/hazzem0/HZ-BIM/releases) and run as Administrator.
 
 Or build from source: compile `installer/setup.iss` with [Inno Setup](https://jrsoftware.org/isinfo.php).
 
@@ -137,7 +137,7 @@ cd "path\to\HZ-BIM"   # wherever you cloned the repo
 git push origin main
 
 # 3. Create a new release
- gh release create v2.4.0 "installer/output/HzBim-Setup-2.4.0.exe" --title "HZ-BIM v2.4.0" --notes "Fixes Claude auto-connect on real installations (install-root resolution), automatic port fallback when 8080 is taken, self-repair of corrupt client configs, and a new hzbim-doctor.ps1. 187 MCP tools, Revit 2020–2027, one-click installer"
+ gh release create v2.8.0 "HZ-BIM-Setup.exe" --title "HZ-BIM v2.8.0" --notes "First HZ-BIM release"
 ```
 
 ### After GitHub is set up:

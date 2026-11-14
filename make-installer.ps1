@@ -21,9 +21,20 @@ function Run($title, $exe, [string[]]$argList, $cwd) {
 function Fail($msg) { Log ""; Log "STOPPED: $msg"; Read-Host 'Press Enter to close'; exit 1 }
 
 # ---- 0. Remove leftovers from older copies of the source ----
-foreach ($old in @('CHANGES-HZ-BIM.md', 'revit-mcp-plugin\HzBimPlugin\PowerBI\Assets\bimBot3DViewer1A2B3C4D.pbiviz')) {
+$stale = @(
+    'CHANGES-HZ-BIM.md', 'revit-mcp-plugin\HzBimPlugin\PowerBI\Assets\bimBot3DViewer1A2B3C4D.pbiviz',
+    'CLAUDE.md', '.graphifyignore', 'common-coding-errors.md', 'deploy.ps1', 'website.md', 'SETUP_ANTIGRAVITY.md',
+    'hz-bim-product-maintainer', 'docs', 'HZ-BIM-src.zip', 'build-log.txt', 'deploy-log.txt', 'claude-config-log.txt'
+)
+foreach ($old in $stale) {
     $f = Join-Path $root $old
-    if (Test-Path $f) { Remove-Item $f -Force; Log "Removed old file: $old" }
+    if (Test-Path $f) { Remove-Item $f -Recurse -Force -ErrorAction SilentlyContinue; Log "Removed: $old" }
+}
+# An empty .git left by a failed first clone (no commits) is useless - remove it. A real clone is kept.
+$gitDir = Join-Path $root '.git'
+if (Test-Path $gitDir) {
+    git -C $root rev-parse --verify HEAD 2>$null | Out-Null
+    if ($LASTEXITCODE -ne 0) { Remove-Item $gitDir -Recurse -Force -ErrorAction SilentlyContinue; Log "Removed: empty .git" }
 }
 
 # ---- 1. Inno Setup (the wizard compiler) ----

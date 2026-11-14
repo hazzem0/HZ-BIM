@@ -1,6 +1,5 @@
 # HZ-BIM — AI-Powered Revit Automation
 
-[![npm version](https://img.shields.io/npm/v/revit-mcp-server.svg)](https://www.npmjs.com/package/revit-mcp-server)
 [![GitHub release](https://img.shields.io/github/v/release/hazzem0/HZ-BIM)](https://github.com/hazzem0/HZ-BIM/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Revit](https://img.shields.io/badge/Revit-2020--2027-blue.svg)](#)
@@ -11,7 +10,7 @@
 
 ## ⚡ Quick Install
 
- 1. Download **`HzBim-Setup-2.8.0.exe`** from [GitHub Releases](https://github.com/hazzem0/HZ-BIM/releases)
+ 1. Download **`HZ-BIM-Setup.exe`** from [GitHub Releases](https://github.com/hazzem0/HZ-BIM/releases)
 2. Run the installer as **Administrator**
 3. Follow the wizard — it will:
    - ✅ Auto-detect your Revit versions (2020–2027)

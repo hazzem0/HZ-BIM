@@ -22,13 +22,10 @@ namespace HzBimPlugin.Core
             $"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/releases/latest";
 
         /// <summary>
-        /// Lightweight version manifest URLs, tried in order.
-        /// 1. Website (fast, no rate limit)
-        /// 2. Raw GitHub (fallback, no API rate limit)
+        /// Lightweight version manifest (version.json in the HZ-BIM repo, raw GitHub - no API rate limit).
         /// </summary>
         private static readonly string[] VERSION_JSON_URLS =
         {
-            "https://elmthary.space/version.json",
             $"https://raw.githubusercontent.com/{GITHUB_OWNER}/{GITHUB_REPO}/main/version.json"
         };
 

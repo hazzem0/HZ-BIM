@@ -110,7 +110,7 @@ HZ-BIM/
 
 ### Component 1: Directory & File System Engine
 
-#### [NEW] [scanner.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/scanner.py)
+#### [NEW] [scanner.py](../src/core/scanner.py)
 
 - Recursive directory walker from user-selected root folder
 - Long path support via `\\?\` prefix on Windows
@@ -124,7 +124,7 @@ HZ-BIM/
 
 ### Component 2: Dual Extraction Engine
 
-#### [NEW] [extractor.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/extractor.py)
+#### [NEW] [extractor.py](../src/core/extractor.py)
 
 Orchestrator that routes files to the correct extraction engine:
 
@@ -162,7 +162,7 @@ class ExtractionResult:
     warnings: list = None
 ```
 
-#### [NEW] [rvt_extractor.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/rvt_extractor.py)
+#### [NEW] [rvt_extractor.py](../src/core/rvt_extractor.py)
 
 Primary engine wrapping `revit-extractor`:
 
@@ -179,7 +179,7 @@ class RvtExtractor:
         return self._to_extraction_result(df, engine='revit-extractor')
 ```
 
-#### [NEW] [ifc_extractor.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/ifc_extractor.py)
+#### [NEW] [ifc_extractor.py](../src/core/ifc_extractor.py)
 
 Fallback engine wrapping `ifcopenshell`:
 
@@ -217,7 +217,7 @@ class IfcExtractor:
         return ExtractionResult(status='SUCCESS', engine='ifcopenshell', ...)
 ```
 
-#### [NEW] [rvt_metadata.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/rvt_metadata.py)
+#### [NEW] [rvt_metadata.py](../src/core/rvt_metadata.py)
 
 Reads `.rvt` file metadata via OLE2 **without Revit** (works for any version):
 
@@ -243,7 +243,7 @@ Key use: **detect which Revit version created the file** so the UI can warn upfr
 
 ### Component 3: Local Database & State Management
 
-#### [NEW] [database.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/db/database.py)
+#### [NEW] [database.py](../src/db/database.py)
 
 ```sql
 CREATE TABLE scan_sessions (
@@ -307,7 +307,7 @@ CREATE TABLE change_log (
 
 ### Component 4: Differential (Diff) Engine
 
-#### [NEW] [diff_engine.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/diff_engine.py)
+#### [NEW] [diff_engine.py](../src/core/diff_engine.py)
 
 | Condition | Classification | DB Action |
 |---|---|---|
@@ -320,7 +320,7 @@ CREATE TABLE change_log (
 
 ### Component 5: Output & Mirroring Engine
 
-#### [NEW] [output_generator.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/output_generator.py)
+#### [NEW] [output_generator.py](../src/core/output_generator.py)
 
 - Mirrors source directory structure 1:1 into output folder
 - Per-file reports in corresponding mirrored subfolder:
@@ -335,7 +335,7 @@ CREATE TABLE change_log (
 
 ### Component 6: GUI & Threading
 
-#### [NEW] [main_window.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/ui/main_window.py)
+#### [NEW] [main_window.py](../src/ui/main_window.py)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -376,14 +376,14 @@ CREATE TABLE change_log (
 - Log console color-codes: ✅ green (success), ↩️ orange (IFC fallback), ❌ red (skipped)
 - Status bar shows breakdown: succeeded / fallback / skipped
 
-#### [NEW] [styles.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/ui/styles.py)
+#### [NEW] [styles.py](../src/ui/styles.py)
 
 - Dark theme: `#0d1117` background, `#161b22` panels
 - Accent: `#58a6ff` (blue), Success: `#3fb950` (green), Warning: `#d29922` (orange), Error: `#f85149` (red)
 - Typography: Segoe UI + Cascadia Code (console)
 - Glassmorphism panels, hover animations
 
-#### [NEW] [scan_worker.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/workers/scan_worker.py)
+#### [NEW] [scan_worker.py](../src/workers/scan_worker.py)
 
 - `QThread` with signals: `progress_updated`, `file_started`, `file_completed`, `log_message`, `scan_finished`
 - Pause/Resume via `QMutex` + `QWaitCondition`
@@ -394,7 +394,7 @@ CREATE TABLE change_log (
 
 ### Component 7: Pipeline Orchestrator
 
-#### [NEW] [pipeline.py](file:///c:/Users/h.elmthary/OneDrive/01-me/HZ-BIM/src/core/pipeline.py)
+#### [NEW] [pipeline.py](../src/core/pipeline.py)
 
 ```
 1. Scan directories → build file list (.rvt + .ifc)
