@@ -1,0 +1,41 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "HZ-BIM": {
+      "type": "local",
+      "command": [
+        "C:\\Program Files\\HzBim\\nodejs\\node.exe",
+        "C:\\Program Files\\HzBim\\server\\build\\index.js"
+      ],
+      "environment": {},
+      "enabled": true,
+      "timeout": 60000
+    },
+    "HZ-BIM-Navis": {
+      "type": "local",
+      "command": [
+        "C:\\Program Files\\HzBim\\nodejs\\node.exe",
+        "C:\\Program Files\\HzBim\\server\\build\\index.js"
+      ],
+      "environment": {
+        "HZBIM_NAVIS_PORT": "8091",
+        "HZBIM_SCOPE": "navis"
+      },
+      "enabled": false,
+      "timeout": 60000
+    }
+  },
+  "tools": {
+    "HZ-BIM_*": false,
+    "HZ-BIM-Navis_*": false
+  },
+  "agent": {
+    "HZ-BIM": {
+      "description": "Revit + Navisworks automation through HZ-BIM (read + write). Prefer test or detached models for changes.",
+      "mode": "primary",
+      "tools": {
+        "HZ-BIM_*": true
+      }
+    }
+  }
+}

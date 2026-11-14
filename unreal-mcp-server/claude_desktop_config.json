@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "HZ-BIM-Unreal": {
+      "command": "C:\Users\hassa\AppData\Local\Programs\HZ-BIM Unreal\HZ-BIM-Unreal.exe",
+      "args": [],
+      "env": {
+        "UNREAL_HOST": "localhost",
+        "UNREAL_PORT": "30010",
+        "UNREAL_BRIDGE_PORT": "30011"
+      }
+    }
+  }
+}

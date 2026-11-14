@@ -1,0 +1,374 @@
+# HZ-BIM — AI-Powered Revit Automation
+
+[![npm version](https://img.shields.io/npm/v/revit-mcp-server.svg)](https://www.npmjs.com/package/revit-mcp-server)
+[![GitHub release](https://img.shields.io/github/v/release/hazzem0/HZ-BIM)](https://github.com/hazzem0/HZ-BIM/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Revit](https://img.shields.io/badge/Revit-2020--2027-blue.svg)](#)
+
+> HZ-BIM: Model Context Protocol (MCP) server + Revit & Navisworks plugins for AI-driven BIM automation with **267 tools**, built-in Gemini AI chat, and Power BI 3D export.
+
+---
+
+## ⚡ Quick Install
+
+ 1. Download **`HzBim-Setup-2.8.0.exe`** from [GitHub Releases](https://github.com/hazzem0/HZ-BIM/releases)
+2. Run the installer as **Administrator**
+3. Follow the wizard — it will:
+   - ✅ Auto-detect your Revit versions (2020–2027)
+   - ✅ Deploy the correct plugin for each version
+   - ✅ Bundle a portable Node.js runtime (no separate install needed)
+   - ✅ Auto-configure Claude Desktop
+4. Open Revit → look for the **"HZ-BIM"** tab in the ribbon
+
+> **That's it!** Ready to use in 60 seconds.
+
+---
+
+## Supported AI Clients
+
+HZ-BIM works with **any MCP-compatible AI client**. The installer auto-configures Claude Desktop, ChatGPT Desktop, OpenCode, Cursor, Windsurf and VS Code when they are installed; for others, copy the config below.
+
+| Client | Config File |
+|--------|-------------|
+| Claude Desktop | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Cursor | `~/.cursor/mcp.json` or Settings → Features → MCP |
+| Windsurf | `%USERPROFILE%\.codeium\windsurf\mcp_config.json` |
+| VS Code | `.vscode/mcp.json` or Command Palette → "MCP: Open User Configuration" |
+| Gemini CLI | `~/.gemini/settings.json` |
+| OpenCode | `%USERPROFILE%\.config\opencode\opencode.json` (auto-configured) |
+
+### Claude Desktop / Cursor / Windsurf / Gemini CLI
+
+```json
+{
+  "mcpServers": {
+    "HZ-BIM": {
+      "command": "C:\\Program Files\\HzBim\\nodejs\\node.exe",
+      "args": ["C:\\Program Files\\HzBim\\server\\build\\index.js"],
+      "env": {}
+    }
+  }
+}
+```
+
+### VS Code (Copilot / MCP Extension)
+
+```json
+{
+  "servers": {
+    "HZ-BIM": {
+      "type": "stdio",
+      "command": "C:\\Program Files\\HzBim\\nodejs\\node.exe",
+      "args": ["C:\\Program Files\\HzBim\\server\\build\\index.js"]
+    }
+  }
+}
+```
+
+### OpenCode
+
+The installer and the Revit plugin's **Connect Claude** button write this into
+`~/.config/opencode/opencode.json` once OpenCode is installed (`npm i -g opencode-ai`).
+OpenCode merges `command` + `args` into one array and calls `env` `environment`:
+
+```json
+{
+  "mcp": {
+    "HZ-BIM": {
+      "type": "local",
+      "command": ["C:\\Program Files\\HzBim\\nodejs\\node.exe", "C:\\Program Files\\HzBim\\server\\build\\index.js"],
+      "enabled": true,
+      "timeout": 60000
+    }
+  }
+}
+```
+
+HZ-BIM tools are off for OpenCode's default agents, so ~280 tool schemas don't
+load into every session. Switch to the **HZ-BIM** agent (Tab) to use them — it has
+every Revit and Navisworks tool, read and write, and creates a checkpoint before changes.
+
+The `HZ-BIM` server already reaches Navisworks (it finds the running Navisworks plugin
+by itself), so the extra `HZ-BIM-Navis` entry (only the `navis_*` and bridge tools) is added with
+`"enabled": false` and can stay off.
+For a project folder, copy `server\opencode\AGENTS.md` (safety + `send_code_to_revit` rules)
+into its root. `server\opencode\opencode.sample.json` shows a full project config.
+Check with `opencode mcp list`. Keep provider keys in `opencode auth login`, not in a shared `opencode.json`.
+
+> **Restart your AI client** after editing the config to load the new MCP server.
+
+---
+
+## 🗑️ Uninstall
+
+Open **Settings → Apps → Installed Apps**, find **HZ-BIM**, and click **Uninstall**.
+
+Or re-run the installer `.exe` — it detects the existing installation and offers a **Repair** or **Uninstall** option.
+
+The uninstaller will automatically:
+- 🧹 Remove the Revit plugin (`.addin` files) from **all** Revit versions (2020–2027, legacy entries included)
+- 🧹 Remove the `HZ-BIM` entry from Claude Desktop config
+- 🧹 Delete the installation directory
+
+> **Note:** Restart Revit after uninstalling to fully unload the plugin.
+
+---
+
+## Features
+
+- **267 MCP Tools** across 20 categories (209 Revit + 58 Navisworks):
+  - 🔍 **Reading** (19): Views, elements, parameters, rooms, levels, sheets, families, schedules, linked models
+  - 🏗️ **Creating** (15): Walls, floors, ceilings, roofs, levels, grids, rooms, views, sheets, tags
+  - ✏️ **Editing** (13): Modify, move, rotate, copy, delete, mirror, align, group, batch modify, conditional bulk parameter edit
+  - 📄 **Documentation** (14): Sheets, viewports, exports, legends, revisions, tags, cross-document annotation transfer (`transfer_annotations`, `export/import_annotations`, `list/activate_document`)
+  - ✅ **QA/QC** (8): Warnings, audits, compliance, naming, duplicates, purge, validation
+  - 🤖 **AI** (8): Gemini chat, code generation, model analysis, Google OAuth
+  - ⚡ **Power Tools** (29): Batch operations, bulk element processing, advanced queries
+  - 🔧 **Advanced** (5): Complex model operations and automation
+  - 📐 **Drafting** (3): Detail lines, detail components, filled regions
+  - 📦 **Export** (16): DWG, PDF, IFC, NWC, images, schedules to CSV/Excel
+  - 🔌 **Extended** (16): Additional element manipulation and property management
+  - 📁 **File Management** (10): Worksharing, links, worksets, file operations
+  - 🔥 **MEP** (8): Ducts, pipes, cable trays, fittings, systems
+  - 📊 **Power BI** (2): 3D geometry export and embedded report display
+  - 🎨 **Rendering** (3): Materials, render settings, visual styles
+  - ⚙️ **Settings** (9): Project info, units, shared parameters, global settings
+  - ✍️ **Sketch** (3): Model lines, reference planes, sketch-based geometry
+  - 🔄 **Transactions** (6): Undo/redo, transaction groups, sub-transactions
+  - 📈 **BIM Dashboard** (3): Dashboard generation, BEP MIDP configuration, compliance validation
+
+- **Antigravity AI Chat** — Built-in Gemini-powered natural language interface inside Revit
+- **Google Gemini 2.5** integration for natural language BIM interaction
+- **Power BI 3D Visual** — Custom Three.js visual for Revit geometry in Power BI dashboards
+- **Integrations** — Google Sheets, Excel, Notion, SQLite connectors
+- **Local AI Support** — Ollama integration for offline AI capabilities
+- **Revit 2020–2027** support — one plugin build per Revit version, each compiled against that year's API
+- **Navisworks Manage 2020–2027** support — one plugin build per Navisworks year, the same way
+- **Auto-updater** via GitHub Releases
+- **One-click installer** (.exe) with portable Node.js
+
+## Supported Revit Versions
+
+The plugin is built once per Revit version. Each build compiles against that
+year's Revit API, so a single binary is never loaded into a version it was not
+compiled for. Builds land in `bin\R<year>\` and install to
+`C:\Program Files\HzBim\plugin\R<year>`.
+
+| Revit Version | Framework | Build band | Status |
+|---------------|-----------|------------|--------|
+| Revit 2020 | .NET Framework 4.7 | `R2020` | ✅ Supported — see limitations |
+| Revit 2021 | .NET Framework 4.8 | `R2021` | ✅ Supported — see limitations |
+| Revit 2022 | .NET Framework 4.8 | `R2022` | ✅ Supported |
+| Revit 2023 | .NET Framework 4.8 | `R2023` | ✅ Supported |
+| Revit 2024 | .NET Framework 4.8 | `R2024` | ✅ Supported |
+| Revit 2025 | .NET 8.0 | `R2025` | ✅ Supported |
+| Revit 2026 | .NET 8.0 | `R2026` | ✅ Supported |
+| Revit 2027 | .NET 10.0 | `R2027` | ✅ Supported |
+
+Build a single band with `dotnet build -c Release -p:RevitVersion=2023`, or all
+of them via `installer\build-installer.ps1`.
+
+### Limitations on Revit 2020 / 2021
+
+Three tools depend on Revit APIs that Autodesk only introduced in 2022. These
+are hard API gaps, not missing effort:
+
+| Feature | Behaviour on 2020/2021 | Reason |
+|---------|------------------------|--------|
+| Create ceiling | Reports "requires Revit 2022 or newer" | No ceiling-creation API exists |
+| Edit floor sketch | Reports "requires Revit 2022 or newer" | `Floor.SketchId` is 2022+ |
+| Export to PDF | Prints to an installed PDF printer instead | `PDFExportOptions` is 2022+ |
+| Deep purge (2020–2023) | Conservative sweep — may purge less | `Document.GetUnusedElements` is 2024+ |
+
+Everything else behaves identically across all eight versions. The API
+differences are isolated in `revit-mcp-plugin/HzBimPlugin/Core/Compat/`.
+
+## Supported Navisworks Versions
+
+Navisworks Manage 2020–2027 are supported. Like the Revit plugin, the Navisworks
+plugin is built once per year: each year's API is strong-named with its own
+version (2020 = 17 … 2027 = 24), and Navisworks only loads plugins built against
+its own version. Builds land in `bin\N<year>\` and the installer copies each
+selected year's DLL into `<Navisworks Manage <year>>\Plugins\HzBimNavisPlugin\`.
+Build one year with `dotnet build -c Release -p:NavisYear=2025`; the API
+references come from the `Speckle.Navisworks.API` NuGet package for that year.
+
+| Navisworks Manage | Notes |
+|-------------------|-------|
+| 2020 | View capture (`navis_capture_view`, `navis_capture_clash`, Clash Snapshots) reports "needs 2021 or newer" — the 2020 API cannot render images |
+| 2021–2023 | Captures ignore section planes (the API has no sectioning switch before 2024) |
+| 2024–2027 | Everything supported |
+
+The differences are isolated in `navis-mcp-plugin/HzBimNavisPlugin/Core/NavisCompat.cs`.
+
+## Architecture
+
+```
+┌─────────────────┐     MCP/stdio      ┌─────────────────┐     TCP/JSON-RPC     ┌─────────────────┐
+│   AI Client     │◄──────────────────► │   MCP Server    │◄────────────────────►│  Revit Plugin   │
+│ (Gemini/Claude) │                     │  (Node.js/TS)   │     port 8080        │   (C# Add-in)   │
+└─────────────────┘                     └─────────────────┘                      └─────────────────┘
+                                              │                                        │
+                                              ▼                                        ▼
+                                        ┌───────────┐                           ┌──────────────┐
+                                        │Integrations│                           │ Antigravity  │
+                                        │Sheets/Excel│                           │  AI Chat UI  │
+                                        │Notion/SQLite│                          │ (Gemini CLI) │
+                                        └───────────┘                           └──────────────┘
+```
+
+## Developer Setup
+
+### 1. Install Dependencies
+```bash
+cd revit-mcp-server
+npm install
+npm run build
+```
+
+### 2. Configure API Key (Optional — for AI features)
+```bash
+cp .env.example .env
+# Edit .env with your Gemini API key
+```
+
+### 3. Configure MCP Client
+
+Add to your MCP client config (e.g. Claude Desktop, Cursor, Windsurf, etc.):
+```json
+{
+  "mcpServers": {
+    "HZ-BIM": {
+      "command": "node",
+      "args": ["<path-to>/revit-mcp-server/build/index.js"],
+      "env": {}
+    }
+  }
+}
+```
+
+### 4. Start in Revit
+1. Install the Revit plugin via the `.exe` installer
+2. Click **"Start MCP Service"** in the Revit ribbon
+3. The AI client can now interact with your Revit model
+
+## Project Structure
+
+```
+HZ-BIM/
+├── revit-mcp-server/              # MCP Server (TypeScript/Node.js)
+│   └── src/
+│       ├── index.ts               # Server entry point
+│       ├── ai/
+│       │   ├── gemini-service.ts
+│       │   └── ollama-service.ts   # Local AI via Ollama
+│       ├── auth/
+│       │   └── google-oauth.ts
+│       ├── integrations/           # External service connectors
+│       │   ├── sheets-client.ts
+│       │   ├── excel-client.ts
+│       │   ├── notion-client.ts
+│       │   └── sqlite-client.ts
+│       ├── tools/                  # 267 MCP Tools (35 files: 28 Revit + 7 Navisworks)
+│       │   ├── reading_tools.ts
+│       │   ├── creating_tools.ts
+│       │   ├── editing_tools.ts
+│       │   ├── documentation_tools.ts
+│       │   ├── qaqc_tools.ts
+│       │   ├── ai_tools.ts
+│       │   ├── bim_dashboard_tools.ts
+│       │   ├── advanced_tools.ts
+│       │   ├── power_tools.ts
+│       │   ├── drafting_tools.ts
+│       │   ├── export_tools.ts
+│       │   ├── extended_tools.ts
+│       │   ├── file_management_tools.ts
+│       │   ├── mep_tools.ts
+│       │   ├── powerbi_tools.ts
+│       │   ├── rendering_tools.ts
+│       │   ├── settings_tools.ts
+│       │   ├── sketch_tools.ts
+│       │   ├── transaction_tools.ts
+│       │   └── transfer_tools.ts
+│       └── utils/
+│           ├── SocketClient.ts
+│           └── ConnectionManager.ts
+│
+├── revit-mcp-plugin/              # Revit Plugin (C# Add-in)
+│   └── HzBimPlugin/
+│       ├── Core/                  # Application core
+│       │   ├── Application.cs
+│       │   ├── CommandExecutor.cs
+│       │   ├── SocketService.cs
+│       │   ├── CodeExecutor.cs
+│       │   ├── ToolRegistry.cs
+│       │   ├── ExcelService.cs
+│       │   ├── ProjectDataService.cs
+│       │   └── ProjectFilesService.cs
+│       ├── AI/                    # AI integration
+│       │   ├── GeminiClient.cs
+│       │   ├── ChatOrchestrator.cs
+│       │   ├── GeminiCliClient.cs
+│       │   └── GeminiCliOrchestrator.cs
+│       ├── Antigravity/           # Built-in AI chat UI
+│       │   ├── AntigravityWindow.cs
+│       │   ├── AntigravityBridge.cs
+│       │   └── AntigravityCommand.cs
+│       ├── PowerBI/               # Power BI 3D export
+│       │   ├── PowerBIExportContext.cs
+│       │   └── PowerBISqliteWriter.cs
+│       ├── UI/                    # WPF user interface
+│       │   ├── ChatWindow.cs
+│       │   ├── SettingsWindow.cs
+│       │   ├── Tools/             # Tool launcher windows
+│       │   └── Themes/            # Dark theme & icons
+│       └── Commands/
+│
+├── revit-mcp-powerbi-visual/      # Power BI Custom Visual
+│   └── src/
+│       ├── visual.ts              # Three.js 3D renderer
+│       ├── meshParser.ts          # Revit geometry parser
+│       └── settings.ts
+│
+├── installer/                     # Inno Setup Installer
+│   └── setup.iss
+│
+└── scripts/                       # Utility scripts
+    ├── antigravity-watcher.ps1
+    └── revit-cmd.ps1
+```
+
+## Tool Reference
+
+| Category | Count | Key Tools |
+|----------|-------|-----------|
+| Reading | 19 | `get_elements`, `get_current_view_info`, `get_parameters`, `get_rooms`, `get_linked_models` |
+| Creating | 15 | `create_wall`, `create_floor`, `create_roof`, `create_room`, `create_sheet` |
+| Editing | 12 | `modify_parameter`, `move_element`, `rotate_element`, `copy_element`, `batch_modify` |
+| Documentation | 14 | `create_sheet`, `place_viewport`, `export_dwg`, `add_revision`, `transfer_annotations`, `export/import_annotations` |
+| QA/QC | 8 | `audit_model`, `check_naming`, `find_duplicates`, `purge_unused` |
+| AI | 8 | `ai_chat`, `ai_generate_code`, `ai_analyze_model`, `google_oauth` |
+| Power Tools | 29 | Batch operations, bulk processing, advanced element queries |
+| Export | 16 | DWG, PDF, IFC, NWC, images, schedule CSV/Excel |
+| Extended | 16 | Additional element manipulation and property management |
+| File Mgmt | 10 | Worksharing, links, worksets, file operations |
+| MEP | 8 | Ducts, pipes, cable trays, fittings, systems |
+| Settings | 9 | Project info, units, shared parameters |
+| Transactions | 6 | Undo/redo, transaction groups |
+| Advanced | 5 | Complex automation |
+| Drafting | 3 | Detail lines, components, filled regions |
+| Rendering | 3 | Materials, visual styles |
+| Sketch | 3 | Model lines, reference planes |
+| Power BI | 1 | 3D geometry export |
+| BIM Dashboard | 3 | `generate_bim_dashboard`, `configure_bep_midp`, `validate_bep_compliance` |
+
+## Building the Installer
+
+1. Compile the C# plugin in Visual Studio
+2. Download [portable Node.js](https://nodejs.org/en/download/) to `installer/nodejs/`
+3. Install [Inno Setup](https://jrsoftware.org/isinfo.php)
+4. Compile `installer/setup.iss`
+
+## License
+
+MIT

@@ -1,0 +1,16 @@
+# ChatGPT Desktop — append to %USERPROFILE%\.codex\config.toml, then restart ChatGPT.
+# The HZ-BIM installer and the Revit plugin write this automatically.
+[mcp_servers.HZ-BIM]
+command = 'C:\Program Files\HzBim\nodejs\node.exe'
+args = ['C:\Program Files\HzBim\server\build\index.js']
+startup_timeout_sec = 30
+tool_timeout_sec = 300
+
+# Navisworks side of HZ-BIM (same server binary; navis_* tools route via
+# HZBIM_NAVIS_PORT to the Navisworks plugin on 8091). Also written automatically.
+[mcp_servers.HZ-BIM-Navis]
+command = 'C:\Program Files\HzBim\nodejs\node.exe'
+args = ['C:\Program Files\HzBim\server\build\index.js']
+env = { HZBIM_NAVIS_PORT = "8091", HZBIM_SCOPE = "navis" }
+startup_timeout_sec = 30
+tool_timeout_sec = 300

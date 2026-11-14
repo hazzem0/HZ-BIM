@@ -1,0 +1,17 @@
+{
+    "mcpServers": {
+        "HZ-BIM": {
+            "command": "C:\\Program Files\\HzBim\\nodejs\\node.exe",
+            "args": ["C:\\Program Files\\HzBim\\server\\build\\index.js"],
+            "env": {}
+        },
+        "HZ-BIM-Navis": {
+            "command": "C:\\Program Files\\HzBim\\nodejs\\node.exe",
+            "args": ["C:\\Program Files\\HzBim\\server\\build\\index.js"],
+            "env": {
+                "HZBIM_NAVIS_PORT": "8091",
+                "HZBIM_SCOPE": "navis"
+            }
+        }
+    }
+}

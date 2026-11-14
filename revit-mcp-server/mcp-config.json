@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+        "hz-bim": {
+            "command": "node",
+            "args": [
+                "build/index.js"
+            ],
+            "cwd": ".",
+            "env": {
+            }
+        }
+    }
+}

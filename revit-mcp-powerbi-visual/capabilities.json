@@ -1,0 +1,119 @@
+{
+    "dataRoles": [
+        {
+            "displayName": "Element ID",
+            "name": "elementId",
+            "kind": "Grouping"
+        },
+        {
+            "displayName": "Chunk Index",
+            "name": "chunkIndex",
+            "kind": "Grouping"
+        },
+        {
+            "displayName": "Category",
+            "name": "category",
+            "kind": "Grouping"
+        },
+        {
+            "displayName": "Mesh JSON",
+            "name": "meshJson",
+            "kind": "Grouping"
+        },
+        {
+            "displayName": "Color R",
+            "name": "colorR",
+            "kind": "Measure"
+        },
+        {
+            "displayName": "Color G",
+            "name": "colorG",
+            "kind": "Measure"
+        },
+        {
+            "displayName": "Color B",
+            "name": "colorB",
+            "kind": "Measure"
+        }
+    ],
+    "dataViewMappings": [
+        {
+            "table": {
+                "rows": {
+                    "select": [
+                        { "for": { "in": "elementId" } },
+                        { "for": { "in": "chunkIndex" } },
+                        { "for": { "in": "category" } },
+                        { "for": { "in": "meshJson" } },
+                        { "for": { "in": "colorR" } },
+                        { "for": { "in": "colorG" } },
+                        { "for": { "in": "colorB" } }
+                    ],
+                    "dataReductionAlgorithm": {
+                        "window": {
+                            "count": 30000
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "objects": {
+        "rendering": {
+            "displayName": "Rendering",
+            "properties": {
+                "backgroundColor": {
+                    "displayName": "Background color",
+                    "type": { "fill": { "solid": { "color": true } } }
+                },
+                "ghostOpacity": {
+                    "displayName": "Dimmed opacity",
+                    "description": "Opacity of non-selected elements when cross-filtering (0 - 1)",
+                    "type": { "numeric": true }
+                },
+                "hideUnselected": {
+                    "displayName": "Hide filtered-out elements",
+                    "description": "On: hide non-selected elements completely. Off: dim them.",
+                    "type": { "bool": true }
+                },
+                "showWireframe": {
+                    "displayName": "Wireframe",
+                    "type": { "bool": true }
+                }
+            }
+        },
+        "interaction": {
+            "displayName": "Interaction",
+            "properties": {
+                "enableSelection": {
+                    "displayName": "Click to filter",
+                    "type": { "bool": true }
+                },
+                "enableOrbit": {
+                    "displayName": "Orbit controls",
+                    "type": { "bool": true }
+                },
+                "autoRotate": {
+                    "displayName": "Auto-rotate when idle",
+                    "type": { "bool": true }
+                },
+                "autoRotateSpeed": {
+                    "displayName": "Auto-rotate speed",
+                    "type": { "numeric": true }
+                }
+            }
+        }
+    },
+    "privileges": [
+        {
+            "name": "WebAccess",
+            "essential": false,
+            "parameters": []
+        }
+    ],
+    "supportsHighlight": true,
+    "supportsMultiVisualSelection": true,
+    "sorting": {
+        "default": {}
+    }
+}

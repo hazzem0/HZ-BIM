@@ -1,0 +1,269 @@
+# Website Update Brief — elmthary.space
+**Date:** August 5, 2026  
+**From:** Hazem Ahmed Ali  
+**To:** Web Developer  
+**Scope:** Update the HZ-BIM website with new sections, installation methods, content fixes, and improvements
+
+---
+
+## Changes Required
+
+### 1. 📊 UPDATE: Hero Stats
+
+**Current:**
+`179 MCP Tools | 17 Categories | 7 Revit Versions`
+
+**Change to:**
+`209 MCP Tools | 19 Categories | 8 Revit Versions`
+
+The correct category count is 19: Reading, Creating, Editing, Documentation, QA/QC, AI, Power Tools, Advanced, Drafting, Export, Extended, File Management, MEP, Power BI, Rendering, Settings, Sketch, Transactions, BIM Dashboard.
+
+---
+
+### 2. 📋 UPDATE: Tools Section Header
+
+**Current:**
+`179 tools across 17 categories`
+
+**Change to:**
+`209 tools across 19 categories`
+
+---
+
+### 3. 🔗 UPDATE: Navigation Bar
+
+**Current links:** Features | Tools | Architecture | Install | Compatibility
+
+**Change to:** Features | Tools | Architecture | Install | Community
+
+- **Add** "Community" linking to the new community section
+- **Remove** "Compatibility" from nav (keep the section on the page, just remove from top nav)
+
+---
+
+### 4. 📥 UPDATE: Install Section — .exe Installer
+
+**Replace the entire Install section** with a single download button for the `.exe` installer.
+
+#### Download HZ-BIM Installer
+
+Large CTA button:
+ > **Download HZ-BIM v2.5.0** — `HzBim-Setup-2.5.0.exe` (Windows)
+
+Link to: `https://github.com/hazzem0/HZ-BIM/releases/latest`
+
+**What it does (show as animated checklist):**
+- ✅ Installs HZ-BIM with a guided setup wizard
+- ✅ Auto-detects your Revit versions (2020–2027)
+- ✅ Deploys the correct plugin for each version
+- ✅ Auto-configures Claude Desktop
+- ✅ Bundles Node.js — no dependencies needed
+- ✅ Ready to use in 60 seconds
+
+**System requirements (small text below button):**
+- Windows 10/11
+- Autodesk Revit 2020–2027
+- Claude Desktop (for AI features)
+
+---
+
+### 5. 🔧 NEW SECTION: Claude Desktop Configuration
+
+Add a section (after Install) showing manual Claude config:
+
+```json
+{
+  "mcpServers": {
+    "HZ-BIM": {
+      "command": "C:\\Program Files\\HzBim\\nodejs\\node.exe",
+      "args": ["C:\\Program Files\\HzBim\\server\\build\\index.js"],
+      "env": {}
+    }
+  }
+}
+```
+
+With note: *"The one-line installer configures this automatically. Use this only if you need to set it up manually."*
+
+---
+
+### 6. 🗑️ NEW SECTION: Uninstall
+
+Add an expandable/accordion section with:
+
+**One-Line Uninstall:**
+```powershell
+irm https://raw.githubusercontent.com/hazzem0/HZ-BIM/main/install.ps1 | iex; Install-HzBim -Uninstall
+```
+
+**What it removes:**
+- 🧹 Revit plugin (`.addin` files + DLLs) from all Revit versions
+- 🧹 `HZ-BIM` entry from Claude Desktop config (+ legacy `revit-mcp` / `hz-bim` keys)
+- 🧹 Installation directory (`C:\Program Files\HzBim` or `%LOCALAPPDATA%\HzBim`)
+
+**Manual uninstall steps** (collapsible):
+1. Delete `%ProgramData%\Autodesk\Revit\Addins\20XX\HzBim.addin` for each Revit version
+2. Remove `"HZ-BIM"` block from `%APPDATA%\Claude\claude_desktop_config.json`
+3. Delete `C:\Program Files\HzBim` folder
+4. Restart Revit and Claude Desktop
+
+---
+
+### 7. 🌍 NEW SECTION: "Community" (Before Footer)
+
+Add a community section with:
+- **Email/Contact** link: `hazzem.ahmed.ali@gmail.com`
+
+Design as a banner CTA:
+> "Join the Community — Connect with BIM professionals using AI to automate Revit"
+
+Icon button (Email) below the text.
+
+---
+
+### 8. 🏷️ NEW: Social Proof Badges (Under Hero)
+
+Add a small row under the hero stats showing:
+- npm downloads badge: `https://img.shields.io/npm/dm/revit-mcp-server`
+- MIT License badge
+- "Works with" logos: Claude, Gemini, Cursor, VS Code
+
+This builds trust and shows the tool is actively used.
+
+---
+
+### 9. 📝 UPDATE: Footer
+
+**Current:**
+`© 2024 HZ-BIM. All rights reserved.`
+
+**Change to:**
+`© 2025 HZ-BIM — Built by Hazem Ahmed Ali`
+
+**Add footer links:**
+- Email/Contact: `hazzem.ahmed.ali@gmail.com`
+
+---
+
+### 10. 📱 NEW: Multi-Language Support (Low Priority)
+
+Add a language toggle (EN | 中文) in the navbar. For now, just add the toggle UI — the Chinese translation will be provided later.
+
+### 11. 🆕 NEW FEATURE: Clash Detection
+
+Add a note in the Features section highlighting the new **Clash Detection** tool that has been added to the plugin UI.
+
+---
+
+### 12. 🆕 UPDATE: Enhanced QA/QC Audit & Coordination Tools (Aug 2026)
+
+Update the QA/QC feature description to highlight the enhanced `audit_model_standards` tool:
+- **Workset assignment validation** — verify elements are on the correct workset per BEP standard
+- **Phase compliance checking** — ensure views use the required phase filter
+- **Shared parameter validation** — check that required shared parameters exist in families
+- **BEP clause references** — violations now link back to specific BEP/EIR clauses
+- **Baseline export** — export the current model's config as a reusable JSON standard
+- **URL-based standards** — load standards from any URL (e.g., raw GitHub)
+- **Audit history tracking** — tracks compliance scores over time with delta reporting
+
+Also add the new `validate_shared_coordinates` tool:
+- Validates shared coordinate alignment across all linked models
+- Reports per-link offsets and rotation angles
+- Optional auto-fix to acquire coordinates from a master link
+
+---
+
+## File Checklist
+
+| File | Changes |
+|---|---|
+| `index.html` | Update stats (185→187 tools), replace install section with .exe download CTA, add uninstall section, add community section, update footer, update nav links, add social proof badges, add enhanced QA/QC audit features |
+| `style.css` | Add styles for download button, community section, social proof badges |
+| `script.js` | No major changes needed |
+
+---
+
+## Design Notes
+
+- **Keep the existing dark theme and glassmorphism aesthetic** — don't change the look and feel
+- **Install section** should have one prominent download button (large, glowing CTA) for the `.exe` installer
+- **Community section** should be warm and inviting
+- **All new sections** should use the same animation patterns (fade-in on scroll) as existing sections
+- **Mobile responsive** — all new sections must work on mobile
+- **Config key is `"HZ-BIM"`** (capital B, I, M, hyphen, capital B) — use this consistently everywhere
+
+---
+
+## Priority Order
+
+1. 🔴 **Fix stats** (17 → 19 categories)
+2. 🔴 **Install section** (.exe download button)
+3. 🔴 **Add Uninstall section**
+4. 🟡 **Community section**
+5. 🟡 **Footer update** (year + attribution)
+6. 🟢 **Social proof badges**
+7. 🟢 **Language toggle placeholder**
+
+---
+
+## Questions to Answer Before Starting
+
+- [x] What's the Discord server link? *(Not needed)*
+- [x] What's the new GitHub repo URL? *(Not adding at all)*
+- [x] Want to add a contact email to the footer? *(Yes: hazzem.ahmed.ali@gmail.com)*
+- [x] What's the installer filename for download? *(HzBim-Setup-2.5.0.exe)*
+- [x] What's the Claude config key? *(`"HZ-BIM"` — capital casing)*
+- [x] What install methods to document? *(PowerShell one-liner, NPX, EXE Installer)*
+
+---
+
+# Website Update Brief — v2.6.0 (Navisworks + ChatGPT)
+**Date:** September 23, 2026
+
+## Changes Required
+
+### 1. Hero stats → `230 MCP Tools | 20 Categories | 8 Revit Versions + Navisworks`
+Was `209 MCP Tools | 19 Categories | 8 Revit Versions`. New total = 209 Revit + 21 Navisworks (`navis_*`) tools.
+
+### 2. Download button → **Download HZ-BIM v2.6.0** — `HzBim-Setup-2.6.0.exe`
+Link: `https://github.com/hazzem0/HZ-BIM/releases/latest` (unchanged).
+System requirements: add `Navisworks Manage 2020+ (optional, for coordination tools)`.
+
+### 3. NEW: Navisworks feature blurb (Features section)
+> **Navisworks Manage support** — 21 new `navis_*` tools: model search, saved viewpoints, selection sets, Clash Detective (run tests, triage results, set status, export HTML/XML reports), append NWC/NWD/IFC, publish NWD, color/visibility overrides. Federated workflow: Revit `export_to_nwc` → `navis_append_file` → clash → AI triage, all from Claude or ChatGPT.
+
+### 4. NEW: ChatGPT MCP section (after Claude config section)
+Automatic: installer + Revit plugin write `[mcp_servers.HZ-BIM]` into `%USERPROFILE%\.codex\config.toml` (ChatGPT Desktop reads MCP servers from there). Manual sample: `revit-mcp-server/mcp-config.chatgpt.toml`. Note: same `build/index.js` serves both Revit (port 8080) and Navisworks (port 8091).
+
+### 5. Footer → `© 2026 HZ-BIM — Built by Hazem Ahmed Ali`
+
+### 6. Publish `version.json` to `https://elmthary.space/version.json`
+New content (copy from repo root `version.json`): version `2.6.0`, downloadUrl `.../releases/download/v2.6.0/HzBim-Setup-2.6.0.exe`. The in-Revit update checker reads this URL first, GitHub raw second — both must serve 2.6.0 or users won't be notified.
+
+---
+
+# Website Update Brief — v2.6.1 (total uninstall)
+**Date:** September 26, 2026
+
+## Changes Required
+
+### 1. Download button → **Download HZ-BIM v2.6.1** — `HzBim-Setup-2.6.1.exe`
+Link: `https://github.com/hazzem0/HZ-BIM/releases/latest` (unchanged).
+
+### 2. UPDATE: Uninstall section — "What it removes"
+Replace the list with (uninstall is now total — v2.6.1):
+- 🧹 App folder (`C:\Program Files\HzBim` or `%LOCALAPPDATA%\Programs\HzBim`) — including generated launcher + config files, so nothing is left on C:
+- 🧹 Revit plugin (`.addin` files + DLLs) from **both** per-user and machine scopes, all Revit versions 2020–2027
+- 🧹 Runtime data (`%APPDATA%\HzBim`, `%LOCALAPPDATA%\HzBim` — logs, settings, license, ProjectData)
+- 🧹 `HZ-BIM` entry from **all** MCP client configs: Claude Desktop (incl. MS Store), Claude Code, Cursor, Windsurf, Gemini CLI, VS Code, VS Code Insiders (+ legacy `revit-mcp` / `hz-bim` keys)
+
+Add note: *"Close Revit first for a clean uninstall — the uninstaller warns if Revit is open, and any file still locked is removed on reboot."*
+
+**Manual uninstall steps** (collapsible) — replace with:
+1. Delete `%APPDATA%\Autodesk\Revit\Addins\20XX\HzBim.addin` **and** `%PROGRAMDATA%\Autodesk\Revit\Addins\20XX\HzBim.addin` for each Revit version (plus `HzBim` / `HzBimPlugin` / `RevitMCP` subfolders)
+2. Remove the `"HZ-BIM"` block from each MCP client config (`%APPDATA%\Claude\claude_desktop_config.json`, `~/.claude.json`, `~/.cursor/mcp.json`, `~/.codeium/windsurf/mcp_config.json`, `~/.gemini/settings.json`, VS Code `mcp.json`)
+3. Delete the app folder (`C:\Program Files\HzBim` or `%LOCALAPPDATA%\Programs\HzBim`) and the data folders (`%APPDATA%\HzBim`, `%LOCALAPPDATA%\HzBim`)
+4. Restart Revit and Claude Desktop
+
+### 3. Publish `version.json` to `https://elmthary.space/version.json`
+New content (copy from repo root `version.json`): version `2.6.1`, downloadUrl `.../releases/download/v2.6.1/HzBim-Setup-2.6.1.exe`. Do this **together with** creating the GitHub release `v2.6.1` (with `HzBim-Setup-2.6.1.exe` attached) — the in-Revit update checker reads the site URL first, GitHub raw second; publishing the JSON before the release asset exists would point users at a 404.

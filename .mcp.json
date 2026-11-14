@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "HZ-BIM": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["revit-mcp-server/build/index.js"],
+      "env": {}
+    }
+  }
+}

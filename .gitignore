@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+bin/
+obj/
+dist/
+
+# Config with secrets
+/config/
+.env
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Installer binaries (too large for git — distribute via GitHub Releases)
+installer/output/
+installer/nodejs/node.exe
+*.zip
+
+# Temp
+*.tsbuildinfo
+*.log
+
+# Antigravity / agent configs
+.agents/
+.gemini/
+.claude/
+
+# Runtime logs
+logs/
+
+# Generated Revit addin manifests (installer/scripts write these with
+# machine-specific absolute paths — never commit one)
+*.addin
+
+# Power BI visual build artifacts
+revit-mcp-powerbi-visual/.tmp/
+
+# Legacy files (removed — install/uninstall is .exe only)
+install.ps1
+uninstall.ps1
+deploy.bat
+revit-mcp-plugin-base/
+revit-mcp-server-base/
+
+# Temp directories
+temp_*/
+scratch/
+
+# Standalone DLL/PDB (build artifacts at root)
+*.dll
+*.pdb
+
+# graphify knowledge graph output
+graphify-out/
+
+# Python caches and the tracker's generated reports
+__pycache__/
+*.py[cod]
+hz-bim-tracker/output/
+
+# Local build log
+build-log.txt
+
+HZ-BIM-src.zip
+deploy-log.txt
+installer-log.txt
+HZ-BIM-Setup.exe
+claude-config-log.txt

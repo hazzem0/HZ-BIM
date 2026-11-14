@@ -1,0 +1,24 @@
+{
+    "visual": {
+        "name": "HzBimViewer",
+        "displayName": "HZ-BIM 3D Viewer",
+        "guid": "hzBim3DViewer7E4F2A91",
+        "visualClassName": "Visual",
+        "version": "1.0.0.0",
+        "description": "3D Revit model viewer for Power BI with cross-filtering. Part of the HZ-BIM pipeline.",
+        "supportUrl": "https://github.com/hazzem0/HZ-BIM",
+        "gitHubUrl": ""
+    },
+    "apiVersion": "5.3.0",
+    "author": {
+        "name": "HZ-BIM",
+        "email": "hazzem.ahmed.ali@gmail.com"
+    },
+    "assets": {
+        "icon": "assets/icon.png"
+    },
+    "style": "style/visual.less",
+    "capabilities": "capabilities.json",
+    "dependencies": null,
+    "stringResources": []
+}
